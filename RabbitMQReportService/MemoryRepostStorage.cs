@@ -1,12 +1,16 @@
-﻿namespace RabbitMQReportService
-{
-    public class MemoryRepostStorage
-    {
-        private IList<Report> _reports = new List<Report>();
+﻿using RabbitMQReportService.Entitie;
 
-        public MemoryRepostStorage(IList<Report> reports)
+namespace RabbitMQReportService
+{
+    public class MemoryRepostStorage : IMemoryRepostStorage
+    {
+        private readonly IList<Report> _reports = new List<Report>();
+        private readonly IMemoryRepostStorage memoryRepostStorage;
+
+        public MemoryRepostStorage(IList<Report> reports, IMemoryRepostStorage memoryRepostStorage)
         {
             _reports = reports;
+            this.memoryRepostStorage = memoryRepostStorage;
         }
 
         public void add(Report reports)
