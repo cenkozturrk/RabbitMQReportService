@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Plain.RabbitMQ;
 using RabbitMQReportService.Entitie;
+using RabbitMQReportService.Service;
 
 namespace RabbitMQReportService
 {
@@ -24,7 +25,19 @@ namespace RabbitMQReportService
         {
             if (message.Contains("Product"))
             {
-
+                var product = JsonConvert.DeserializeObject<Product>(message);
+                if (memoryRepostStorage.Get().Any(r => r.ProductName == product.Name))
+                {
+                    return true;
+                }
+                else
+                {
+                    memoryRepostStorage.add(new Report
+                    {
+                        ProductName = product.Name,
+                        Count = DEFAULT_QUANTITY 
+                    });
+                }
             }
             else
             {

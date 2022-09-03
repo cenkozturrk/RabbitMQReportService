@@ -1,6 +1,6 @@
 ﻿using RabbitMQReportService.Entitie;
 
-namespace RabbitMQReportService
+namespace RabbitMQReportService.Service
 {
     public interface IMemoryRepostStorage
     {
